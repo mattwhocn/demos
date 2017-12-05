@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script type="text/javascript" src="../../script/jquery-1.12.3.js"></script>
+    <script type="text/javascript" src="ZeroClipboard.js"></script>
+</head>
+<body>
+<textarea id="data-clipboard-target">Copy me!</textarea>
+<div id="d_clip_button" class="my_clip_button"><b>点击复制</b></div>
+
+<script type="text/javascript">
+    $(function(){
+        var clip = new ZeroClipboard($('#d_clip_button'));
+
+        clip.on('ready', function(){
+            alert('Flash 已经准备完成。');
+
+            this.on('aftercopy', function(event){
+                alert('已经复制剪贴板：');
+                console.log(event);
+            });
+        });
+
+    });
+
+
+
+
+//    $(document).ready(function(){
+//        var clip = new ZeroClipboard($('#d_clip_button'));
+//
+//        clip.on('ready', function(){
+//            debugstr('Flash 已经准备完成。');
+//
+//            this.on('aftercopy', function(event){
+//                debugstr('已经复制剪贴板：' + event.data['text/plain']);
+//            });
+//        });
+//
+//        clip.on('error', function(event){
+//            $('.demo-area').hide();
+//            debugstr('error[name="' + event.name + '"]: ' + event.message);
+//            ZeroClipboard.destroy();
+//        });
+//
+//        // jquery stuff (optional)
+//        function debugstr(text){
+//            $('#d_debug').append($('<p>').text(text));
+//        }
+//
+//        $('#clear-test').on('click', function (){
+//            $('#fe_text').val('Copy me!');
+//            $('#testarea').val('');
+//        });
+//    });
+
+</script>
+</body>
+</html>

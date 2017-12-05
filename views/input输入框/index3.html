@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=9" />
+		<title></title>
+	</head>
+	<style type="text/css">
+		.upload_wrap{
+			width: 80px;
+			height: 80px;
+			overflow: hidden;
+			display: inline-block;
+			border: 1px dashed #999;
+			background: url(img/camera.png) no-repeat center center;
+			/*ie7下写center center会偏移 */
+			background-position:center left;
+			position: relative;
+		}
+		#identityFile,#idCardPositiveFile,#idCardNegativeFile{
+			width: 0px;
+			height: 0px;
+			position: absolute;
+			outline: none;
+			margin-top: -9999px;
+		}
+		.imgshow{
+			position: absolute;left: 0;top: 0;
+			width: 80px;
+			height: 80px;
+		}
+	</style>
+	<body>
+		<table width="100%">
+		    <!--点击营业执照显示的部分-->
+			<tr	style="height: 30px; font-size: 16px; text-align: center; border-spacing: 0px 25px;" class="identityCard replace_item">
+				<td >机构证件: 
+				    <input type="hidden" id="identity" name="identity" />
+				    <label class="upload_wrap upload_wrap_a" for="identityFile">
+				    	<input id="identityFile" type="file" onchange="uploadIdentityPic(this)" name="identityFile"/>
+				    	<!--此处用js插入一个img标签	-->
+				    </label>
+				    
+					<div style="color: red" id="picIdentityWarn">请上传40KB(80*80像素)的图片</div>
+				</td>
+			</tr>
+			
+			<div></div>
+			<!--点击法人身份证显示的部分-->
+			<tr	style="height: 30px;font-size: 16px; text-align: center; border-spacing: 0px 25px;" class="idCard replace_item">
+				<td>法人身份证: 
+				    <!-- 正面 -->
+				    <input type="hidden" id="idCardPositive" name="idCardPositive" />
+				    <label class="upload_wrap upload_wrap_b" for="idCardPositiveFile">
+						<input id="idCardPositiveFile" type="file" onchange="uploadIdCardPositivePic(this)" name="idCardPositiveFile" />
+						<!--此处用js插入一个img标签-->
+					</label>
+				    <!-- 反面 -->
+				    <input type="hidden" id="idCardNegative" name="idCardNegative" />
+				    <label class="upload_wrap upload_wrap_c" for="idCardNegativeFile">
+						<input id="idCardNegativeFile" type="file" onchange="uploadIdCardNegativePic(this)" name="idCardNegativeFile" />
+						<!--此处用js插入一个img标签-->
+					</label>
+					<div style="color: red" id="idCardNegativeWarn">请上传40KB(80*80像素)的图片</div>
+				    
+				</td>
+			</tr>
+		</table>
+		
+	</body>
+	<script src="../newwwwww/uploadfile/js/jquery-1.7.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		//营业执照
+		function uploadIdentityPic(file){
+			//主流浏览器
+			if(file.files && file.files[0]){
+				var imgObj = $('<img class="imgshow" />');
+				$('.upload_wrap_a').append(imgObj);
+				var reader = new FileReader();
+				reader.onload = function(evt){
+					imgObj.attr('src',evt.target.result);
+				}
+				reader.readAsDataURL(file.files[0]);
+			}else{
+				//ie浏览器
+				file.select();
+				file.blur();
+				var src = document.selection.createRange().text;
+				var sFilter='progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + src + '\')';
+				var divObj = $('<div class="imgshow"></div>');
+				divObj.css('filter',sFilter);
+				$('.upload_wrap_a').append(divObj); 
+			}
+		}
+		
+		//法人身份证正面
+		function uploadIdCardPositivePic(file){
+			//主流浏览器
+			if(file.files && file.files[0]){
+				var imgObj = $('<img class="imgshow" />');
+				$('.upload_wrap_b').append(imgObj);
+				var reader = new FileReader();
+				reader.onload = function(evt){
+					imgObj.attr('src',evt.target.result);
+				}
+				reader.readAsDataURL(file.files[0]);
+			}else{
+				//ie浏览器
+				file.select();
+				file.blur();
+				var src = document.selection.createRange().text;
+				var sFilter='progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + src + '\')';
+				var divObj = $('<div class="imgshow" ></div>');
+				divObj.css('filter',sFilter);
+				$('.upload_wrap_b').append(divObj); 
+			}
+		}
+
+		//法人身份证反面
+		function uploadIdCardNegativePic(file){
+			//主流浏览器
+			if(file.files && file.files[0]){
+				var imgObj = $('<img class="imgshow" />');
+				$('.upload_wrap_c').append(imgObj);
+				var reader = new FileReader();
+				reader.onload = function(evt){
+					imgObj.attr('src',evt.target.result);
+				}
+				reader.readAsDataURL(file.files[0]);
+			}else{
+				//ie浏览器
+				file.select();
+				file.blur();
+				var src = document.selection.createRange().text;
+				var sFilter='progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + src + '\')';
+				var divObj = $('<div class="imgshow" ></div>');
+				divObj.css('filter',sFilter);
+				$('.upload_wrap_c').append(divObj); 
+			}
+		}
+	</script>
+</html>

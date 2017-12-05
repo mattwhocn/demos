@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<button>点击</button>
+		<p>22222</p>
+	</body>
+	<script src="../script/jquery-1.12.3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		//获取日期
+		var date  =new Date;
+		console.log(date);
+		
+		//获取年份
+		var y = date.getFullYear();
+		console.log(y);
+		
+		//获取月份，月份是从1开始的
+		var m = date.getMonth();
+		console.log(m+1);
+		
+		//获取日期
+		var d = date.getDate();
+		console.log(d);
+		
+		//获取星期几
+		var day = date.getDay();
+		console.log("星期" + day);
+		
+		
+		calData = new Date(date.setDate(date.getDate() + 7));
+		console.log(calData);
+		
+
+		// 日期的加减操作 setDate
+		function addDate(date,days){
+			var d=new Date(date);
+			d.setDate(d.getDate()+days);
+			var month=d.getMonth()+1;
+			var day = d.getDate();
+			if(month<10){
+				month = "0"+month;
+			}
+			if(day<10){
+				day = "0"+day;
+			}
+			var val = d.getFullYear()+""+month+""+day;
+			return val;
+		}
+
+        // 绑定事件
+		$('button').on('click.a',function(){
+			alert('1111');
+		});
+        $('button').on('click.b',function(){
+            alert('222');
+        });
+
+        // 解绑事件  // 命名空间
+		$('p').on('click',function(){
+			$('button').off('click.b');
+		});
+
+
+
+
+	</script>
+</html>

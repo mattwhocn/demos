@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			ul,li{
+				list-style: none;
+			}
+			input{
+				width: 200px;
+			}
+			li{
+				width: 200px;
+				text-align: center;
+				border-bottom: 1px dashed #999;
+				background-size: contain;
+				background-size: cover;
+				background-size: initial;
+				background-size: contain;
+				background-size: contain;
+				
+			}
+		</style>
+	</head>
+	<body>
+		<input type="text" class="input"/>
+		<ul class="resWrap">
+		</ul>
+	</body>
+	<script src="../newwwwww/模糊查询/js/jquery-1.7.1.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		var dataArr = [{ id:1, name:"今天吃饭了吗" }, { id:2, name:"吃了" }, { id:3, name:"过了今天是明天" }, { id:4, name:"哪一天啊" }, { id:5, name:"不想吃饭" }, { id:6, name:"一天又一天" }, { id:7, name:"我不吃了" }, { id:8, name:"好吃吗" }, { id:9, name:"好的" }, { id:10, name:"你好啊" },{ id:11, name:"草堂小学" }];
+			
+		success(dataArr);
+		
+		
+		
+		function success(data){
+			console.log(data);
+			$('.input').on('keyup',function(){
+				var inpVal = $('.input').val();
+				if(inpVal != ""){
+					
+					console.log(inpVal);
+					var resIndex;   
+			        var resArr = [];
+			        
+			        for(var i in data){   
+			            var searchItem = data[i] || '';  
+			            //在这调用匹配数组中第i个元素的方法
+			            resIndex = find(inpVal, searchItem.name);   
+			            if(resIndex>=0){   
+			                resArr[resArr.length] = searchItem;  
+			            }   
+			        }   
+			        console.log(resArr);
+			        //在这里把匹配到的结果放到页面
+			       setRes(resArr);
+				}
+				
+			})
+			
+			function find(find, item){   
+			    var size = find.length;
+			    var length = item.length;
+			    var compare;
+			    
+			    if(size <= length ){   
+			        for(var i = 0; i <= length - size + 1; i++){   
+			            compare = item.substring(i, i + size);   
+			            if(compare == find){   
+			                return i;   
+			            }   
+			        }   
+			    }   
+			    return -1;   
+			}
+			
+			//把结果放到页面中的函数
+			function setRes(data){
+				$('.resWrap').empty();
+				for(i in data){
+					var liObj = $('<li>' + data[i].name + '</li>');
+					$('.resWrap').append(liObj);
+				}
+			}
+		}
+	</script>
+</html>

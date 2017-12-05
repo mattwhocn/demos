@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>  
+<html>  
+<head>  
+  <title> New Document </title>  
+  <script type="text/javascript" src="../script/jquery-1.12.3.js"></script>
+  <style type="text/css">  
+/*模块拖拽*/  
+.v_split_bar{position:absolute;width:100px;height:100px;border:1px solid #ddd;background:#FBF2BD;text-align:center;padding:5px;top:100px;left:20px;cursor:move;}  
+</style>  
+  
+<script type="text/javascript">  
+	// 模块拖拽  
+	$(function(){  
+	//拖动事件	 
+		var _move=false;//移动标记  
+		var positionX,positionY;//鼠标离控件左上角的相对位置  
+		$('.v_split_bar').mousedown(function(e){  
+			_move=true;  
+			positionX=e.pageX-parseInt($('.v_split_bar').css("left"));
+			positionY=e.pageY-parseInt($('.v_split_bar').css("top")); 
+			$('.v_split_bar').fadeTo(20,0.5);//点击后开始拖动并透明显示  
+		});  
+		$(document).mousemove(function(e){  
+		    if(_move){  
+		    	var x=e.pageX-positionX;//移动时根据鼠标位置计算控件左上角的绝对位置  
+				var y=e.pageY-positionY;  
+				$('.v_split_bar').css({top:y,left:x});//控件新位置  
+		    }  
+		}).mouseup(function(){  
+			_move=false;  
+			$('.v_split_bar').fadeTo("fast", 1);//松开鼠标后停止移动并恢复成不透明  
+		});
+	});  
+</script>  
+</head>  
+<body>  
+	<div class="v_split_bar">这个可以拖动哦 ^_^</div>  
+</body>  
+  
+</html>   
+
+
+
+
+
+
+

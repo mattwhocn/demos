@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+            position: relative;
+            overflow: hidden;
+        }
+        @keyframes round {
+            0%{transform: rotate(0deg)}
+            100%{transform: rotate(360deg)}
+        }
+        .wrap{
+            width:198px;
+            height:198px;
+            position: absolute;
+            background: rgba(160,160,160,.8);
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            border-radius: 50%;
+            /*border:10px solid rgba(1, 143, 22, 0.97);*/
+        }
+        .inner{
+            display: block;
+            position: absolute;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            margin:auto;
+            border:2px solid transparent;
+            border-radius: 50%;
+        }
+        
+    </style>
+</head>
+<body>
+    
+</body>
+<script type="text/javascript" src="../script/jquery-1.12.3.js"></script>
+<script type="text/javascript">
+    
+$(function(){
+    var str = '<div class="wrap"></div>';
+    //效果一
+    for(var i=1;i<34;i++){
+        var stl = 'width:'+(200-i*2)+'px;height:'+(200-i*2)+'px;'+'border-top:3px solid rgba(0,0,0,'+  ((1-33*0.03)+i*0.03) +');animation: round 2s ease-out '+ ((0.015*33) - i*0.015) +'s infinite;'
+        str += ' <div class="inner" style="'+  stl +'"></div>'
+    }
+    //效果二
+//    for(var i=1;i<34;i++){
+//     var stl = 'width:'+(200-i*2)+'px;height:'+(200-i*2)+'px;'+'border-top:3px solid rgba(0,0,0,'+  (1-i*0.03) +');animation: round 2s ease-out '+ (i*0.015) +'s infinite;'
+//     str += ' <div class="inner" style="'+  stl +'"></div>'
+//    }
+    $('body').html(str)
+})
+
+</script>
+</html>

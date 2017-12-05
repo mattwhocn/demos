@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			html,body{
+				width: 100%;
+				height: 100%;
+			}
+			body{
+				position: relative;
+				overflow: hidden;
+			}
+			#line_x{
+				width: 100%;
+				height: 1px;
+				background-color:red;
+				position: absolute;
+				top: -1px;
+			}
+			#line_y{
+				width: 1px;
+				height: 100%;
+				background-color:red ;
+				position: absolute;
+				left: -1px;
+			}
+			#pag{
+				position: absolute;
+				width: 50px;
+				height: 50px;
+				line-height: 25px;
+				text-align: center;
+				border: 1px solid #999;
+				left: -50px;
+				top: -50px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="line_x"></div>
+		<div id="line_y"></div>
+		<p id="pag"></p>
+	</body>
+	<script src="../script/jquery-1.12.3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+			var spac = "   ";
+			$('body').on('mousemove',function(e){
+				var e = e||window.event;
+				console.log(e.clientX,e.clientY);
+				$('#line_x').css('top',e.clientY);
+				$('#line_y').css('left',e.clientX);
+				$('#pag').css({
+					'left':e.clientX-$('#pag').height(),
+					'top':e.clientY-$('#pag').width()
+				}).text('x:' + e.clientX   + spac + 'y:' +e.clientY);
+			})
+		})
+	
+		
+	</script>
+</html>

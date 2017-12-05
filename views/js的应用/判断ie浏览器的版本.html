@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+	</head>
+	<body>
+		
+	</body>
+	<script src="../script/jquery-1.12.3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		$(function(){
+			
+			//方法一：userAgent法
+			var userAgent = navigator.userAgent; //获取浏览器的内置对象：userAgent
+			var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器  
+            var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器  
+            var isEdge = userAgent.toLowerCase().indexOf("edge") > -1 && !isIE; //判断是否IE的Edge浏览器  
+            var isIE11 = (userAgent.toLowerCase().indexOf("trident") > -1 && userAgent.indexOf("rv") > -1);  
+			console.log(isEdge);
+
+			//方法二
+			var isIE=!!window.ActiveXObject; 
+			var isIE6=isIE&&!window.XMLHttpRequest; 
+			var isIE8=isIE&&!!document.documentMode; 
+			var isIE7=isIE&&!isIE6&&!isIE8; 
+			if (isIE){ 
+			if (isIE6){ 
+			alert("ie6"); 
+			}else if (isIE8){ 
+			alert("ie8"); 
+			}else if (isIE7){ 
+			alert("ie7"); 
+			} 
+			} 
+
+		})
+		
+		
+		
+	</script>
+</html>

@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        /*旋转动画的关键帧*/
+        @-webkit-keyframes rot_left {
+            0%{transform: rotate(0deg);}
+            50%{transform: rotate(0deg);}
+            100%{transform: rotate(180deg);}
+        }
+        @-webkit-keyframes rot_right {
+            0%{transform: rotate(0deg);}
+            50%{transform: rotate(180deg);}
+            100%{transform: rotate(180deg);}
+        }
+        @keyframes rot_left {
+            0%{transform: rotate(0deg);}
+            50%{transform: rotate(0deg);}
+            100%{transform: rotate(180deg);}
+        }
+        @keyframes rot_right {
+            0%{transform: rotate(0deg);}
+            50%{transform: rotate(180deg);}
+            100%{transform: rotate(180deg);}
+        }
+
+        /*外框的样式*/
+        .box-wrap{
+            width:100%;
+            height: 200px;
+            margin:200px auto;
+            overflow: hidden;
+        }
+        .box{
+            width:160px;
+            height:160px;
+            margin:20px auto;
+            border-radius: 50%;
+            background: #ffffff;
+            background-size: 100px 100px;
+            position: relative;
+        }
+
+
+        /*进度条*/
+        #outer {
+            width: 100%;
+            height: 100%;
+            background: rgb(33, 131, 60);
+            border-radius: 50%;
+            padding:1px;
+            position: relative;
+            overflow: hidden;
+            font-size: 0;
+            background-clip: content-box;
+        }
+        #inner {
+            width: 150px;
+            height: 150px;
+            background: rgb(165, 165, 165);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 9;
+        }
+        #inner .icon{
+            width:100px;
+            height:100px;
+            fill: #fff;
+            position: absolute;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+        }
+
+        #load_left, #load_right {
+            width: 80px;
+            height: 160px;
+            position: absolute;
+            overflow: hidden;
+            z-index:8;
+        }
+        #load_left {
+            top: 0;
+            left: 0;
+            border-top-left-radius: 100% 50%;
+            border-bottom-left-radius: 100% 50%;
+            transform-origin: 100% 50%;
+        }
+        #load_right {
+            top: 0;
+            left: 50%;
+            border-top-right-radius: 100% 50%;
+            border-bottom-right-radius: 100% 50%;
+            transform-origin: 0 50%;
+        }
+        #load_left span, #load_right span {
+            display: inline-block;
+            width: 80px;
+            height: 160px;
+            background: rgb(219, 219, 219);
+            position: absolute;
+        }
+        #load_left span {
+            border-top-left-radius: 100% 50%;
+            border-bottom-left-radius: 100% 50%;
+            transform-origin: 100% 50%;
+            /*-webkit-animation: rot_left 2s linear 1;*/
+            /*animation: rot_left 2s linear 1;*/
+        }
+        #load_right span {
+            top: 0;
+            right: 0%;
+            border-top-right-radius: 100% 50%;
+            border-bottom-right-radius: 100% 50%;
+            transform-origin: 0 50%;
+            /*-webkit-animation: rot_right 2s linear 1;*/
+            /*animation: rot_right 2s linear 1;*/
+        }
+
+        /*背景方法的效果*/
+        .back{
+            width:100px;
+            height:100px;
+            border-radius: 50%;
+            position: absolute;
+            left:50%;
+            top:50%;
+            opacity: 1;
+            background: #228A2F;
+            transform: translate(-50%,-50%);
+            z-index: -2;
+        }
+    </style>
+</head>
+<body>
+    <div class="box-wrap">
+        <div class="box">
+            <div class="progress" id="outer">
+                <div id="load_left"><span></span></div>
+                <div id="load_right"><span></span></div>
+                <div id="inner">
+                    <svg t="1489475848559" class="icon" style="" viewBox="0 0 1445 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1983" xmlns:xlink="http://www.w3.org/1999/xlink" width="282.2265625" height="200">
+                        <path d="M114.25241 392.936922c-18.063617-21.073044-55.392928-13.847879-84.896035 15.655228-28.900658 29.503108-37.931761 70.445706-20.472005 91.520161l515.399298 511.787421c17.461167 21.073044 55.392928 13.847879 84.294996-15.655228 5.419226-5.419226 10.236002-10.838452 13.847879-16.256267L1435.866344 118.980301c17.461167-20.472005 8.430064-61.414603-20.472005-90.917711-29.503108-29.503108-66.833829-36.728272-84.896035-15.655228L555.592714 831.868837 114.25241 392.936922z" p-id="1984"></path>
+                    </svg>
+                </div>
+            </div>
+            <div class="back"></div>
+        </div>
+    </div>
+
+    <button>刷新</button>
+</body>
+<script src="../../script/jquery-2.1.1.min.js"></script>
+<script>
+    $('#outer').on('click',function(){
+        $('#load_left span').css({
+            'animation' : 'rot_left 1s linear 1',
+            '-webkit-animation' : 'rot_left .6s linear 1'
+        });
+        $('#load_right span').css({
+            'animation' : 'rot_right 1s linear 1',
+            '-webkit-animation' : 'rot_right .6s linear 1'
+        });
+
+        setTimeout(function(){
+            $('#inner').css({
+                'background':'#228A2F',
+                'opacity':'0'
+            }).animate({
+                'opacity':'1'
+            },600).find('.icon').css('fill','#fff');
+            $('.back').animate({
+                'width':'500px',
+                'height':'500px',
+                'opacity':'0'
+            },600);
+        },600);
+    });
+
+    $('button').click(function(){
+        location.reload();
+    });
+</script>
+</html>

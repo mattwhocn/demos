@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="Description" content=""/>
+		<meta name="Keywords" content=""/>
+		<meta http-equiv="Pragma" content="no-cache" />
+		
+		
+		
+		
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul,li{
+				list-style: none;
+			}
+		
+		
+			.page_head{width:900px;height:30px;}
+			.imgs_box{overflow:hidden;margin-top:20px;width:1000px;}
+			.imgs_box div{float:left;height:220px;width:300px;border:1px solid #b8d0d6;position:relative;margin:0 10px 10px 0;padding:5px;}
+			.imgs_box div img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width: 100%;}
+			
+		
+			.img_carrousel_wrap{position:fixed;left:0;top:0;right:0;bottom:0;margin:auto;
+			width:1000px;height:500px;background:rgba(100,100,100,0.8);
+			z-index:99;border-radius:3px;display:none;overflow:hidden;}
+			.img_carrousel_wrap ul{width:1000px;height:100%;position:absolute;}
+			.img_carrousel_wrap ul li{width:1000px;height:100%;float:left;position:relative;}
+			.img_carrousel_wrap ul li img{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+				cursor: url(img/openhand.cur) 8 8,default;}
+			.go_btn{width:100px;height:100%;position:absolute;top:0;}
+			.go_btn p{display:none;width:44px;height:44px;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);padding:0;}
+			.go_left{left:10px;}
+			.go_left p{background:url(img/go_left.png);}
+			.go_left:hover p{display:block;}
+			.go_right{right:10px;}
+			.go_right p{background:url(img/go_right.png);}
+			.go_right:hover p{display:block;}
+			.c_close_btn{width:36px;height:36px;position:absolute;right:10px;top:10px;background:url(img/close_btn_off.png);}
+			.c_close_btn:hover{background:url(img/close_btn_on.png);}
+			
+		</style>
+	</head>
+	<body>
+		<div class="imgs_box">
+			<div>
+				<img class="postsimg" src="img/13179846_1345796441960.jpg"/> 
+			</div>
+			<div >
+				<img class="postsimg" src="img/1479178367849.jpg"/> 
+			</div>
+			<div >
+				<img class="postsimg" src="img/flower.jpg"/> 
+			</div>
+			<div >
+				<img class="postsimg" src="img/flower1.jpg"/> 
+			</div>
+			<div >
+				<img class="postsimg" src="img/批量注册.png"/> 
+			</div>
+			<div >
+				<img class="postsimg" src="img/批量注册_结果.png"/> 
+			</div>
+			
+		</div>	
+		
+		<!--轮播浮层-->
+		<div class="img_carrousel_wrap">
+			<ul>
+				
+			</ul>
+			<div class="go_left go_btn"><p></p></div>
+			<div class="go_right go_btn"><p></p></div>
+		<div class="c_close_btn"></div>
+	</div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.7.1.js" ></script>
+	<script type="text/javascript">
+		//查询浏览器窗口的宽高
+		var browserWidth = document.documentElement.clientWidth;
+		$('.img_carrousel_wrap').width(browserWidth*0.8);
+		$('.img_carrousel_wrap').height(browserWidth*0.8*0.55);
+		var wrap_width = $('.img_carrousel_wrap').width();
+		var wrap_height = $('.img_carrousel_wrap').height();
+		var imgsrcArr = [];
+		//循环每张图片
+		$('.postsimg').each(function(){
+			imgsrcArr.push($(this).attr('src'));
+			$(this).load(function(){
+				var wrapHeight = 220,wrapWidth = 300;
+				fullImg($(this),wrapHeight,wrapWidth);
+			})
+		})
+		
+		//九宫格图片显示完全--的函数
+		function fullImg(obj,wrapHeight,wrapWidth){
+			var imgscale = wrapHeight/wrapWidth;
+			var naturalHeight = obj.context.naturalHeight;
+			var naturalWidth = obj.context.naturalWidth;
+			if(naturalHeight/naturalWidth >= imgscale){
+				obj.height(wrapHeight);
+			}else if(naturalHeight/naturalWidth <= imgscale){
+				obj.width(wrapWidth);
+			}
+		}
+		
+		//点击看大图
+		$('.postsimg').click(function(){
+			$('.img_carrousel_wrap').show();
+			$('.img_carrousel_wrap ul').width(imgsrcArr.length*wrap_width);
+			var img_index = $(this).parent().index();
+			$('.img_carrousel_wrap ul').empty();
+			for(var i=0;i<imgsrcArr.length;i++){
+				var liObj = $('<li><img src="'+ imgsrcArr[i] +'" draggable="false"/></li>');
+				$('.img_carrousel_wrap ul').append(liObj);
+			}
+			/* 给li动态设置宽度应该放到append后面 */
+			$('.img_carrousel_wrap ul li').width(wrap_width);
+			$('.img_carrousel_wrap ul li img').css({
+				'max-width':wrap_width-40,
+				'max-height':wrap_height-20
+			});
+			$('.img_carrousel_wrap ul').css('left',(-img_index*wrap_width) + 'px');
+			isShow(img_index);
+			
+			$('.go_left').click(function(){
+				img_index--;
+				$('.img_carrousel_wrap ul').animate({'left':-img_index*wrap_width},200);
+				isShow(img_index);
+			})
+			$('.go_right').click(function(){
+				img_index++;
+				$('.img_carrousel_wrap ul').animate({'left':-img_index*wrap_width},200);
+				isShow(img_index);
+			})
+			$('.c_close_btn').click(function(){
+				$('.img_carrousel_wrap').hide();
+			})
+		})
+		
+		function isShow(img_index){
+			if(imgsrcArr.length>1){
+				if(img_index == 0){
+					$('.go_left').hide();
+					$('.go_right').show();
+				}else if(img_index == imgsrcArr.length-1){
+					$('.go_right').hide();
+					$('.go_left').show();
+				}else{
+					$('.go_left').show();
+					$('.go_right').show();
+				}
+			}else if(img_index == 1){
+				$('.go_left').hide();
+				$('.go_right').hide();
+			}
+		}
+		
+		//滚轮的缩放效果
+		$('.img_carrousel_wrap ul li img').live('mousewheel',function(e){
+			console.log(this);//图片元素
+			console.log(this.style.zoom);
+			var zoom = parseInt(this.style.zoom)||100;
+			var event = e || window.event;
+//			console.log(event.originalEvent.wheelDelta);
+//			console.log(event.wheelDelta);
+			zoom += event.originalEvent.wheelDelta/12;
+			console.log(zoom);
+			
+			if (zoom>40 && zoom<210){
+				this.style.zoom=zoom+'%'
+			};
+			if(zoom>100){
+				//放大了
+				$('.img_carrousel_wrap ul li img').on('mousedown',function(e){
+					var ev_d = e || window.event;
+					var positionX = ev_d.clientX;
+					var positionY = ev_d.clientY;
+					var flag = true;
+					$('.img_carrousel_wrap ul li img').on('mousemove',function(e){
+						var ev_m = e || window.event;
+						var moveX = ev_m
+						if(flag){
+							console.log(positionX,positionY);
+						}
+					})
+					$('.img_carrousel_wrap ul li img').on('mouseup',function(){
+						flag = false;
+					})
+				})
+			}
+			return false;
+		})
+		
+	</script>
+</html>

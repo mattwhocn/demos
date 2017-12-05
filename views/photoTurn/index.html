@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>相册本</title>
+	<link rel="stylesheet" href="css/index.css">
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+	<div class="wrap">
+		<div class="page-box">
+			<div class="page-last">
+				
+			</div>
+		</div>
+		<div class="page-box">
+			<div class="page">
+				<img src="img/1.jpg" alt="">
+			</div>
+		</div>
+		<div class="page-box">
+			<div class="page">
+				<img src="img/2.jpg" alt="">
+			</div>
+		</div>
+		<div class="page-box">
+			<div class="page">
+				<img src="img/3.jpg" alt="">
+			</div>
+		</div>
+		<div class="page-box">
+			<div class="page">
+				<img src="img/4.jpg" alt="">
+			</div>
+		</div>
+		<div class="page-box">
+			<div class="page page-first">
+				<p class="text">抢地主照片展示</p>
+			</div>
+		</div>
+	</div>
+	<div class="btnwrap">
+		<button id="preBtn">上一页</button>
+		<button id="nexBtn">下一页</button>
+	</div>
+	
+</body>
+<script type="text/javascript">
+	var obj = {
+		pageClass:'.wrap',
+		durTime:'3s'
+	}
+	$.bookTurn(obj)
+</script>
+</html>

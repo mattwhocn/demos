@@ -1,0 +1,25 @@
+<!DOCTYPE >
+<html >
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
+<title>用鼠标滚轮滚动控制图片的缩小放大</title>
+<script type="text/javascript">
+function bbimg(o){ 
+	console.log(o)
+	var zoom=parseInt(o.style.zoom, 10)||100;
+	zoom+=event.wheelDelta/12;
+	
+	console.log(event.wheelDelta);
+	if (zoom>0) o.style.zoom=zoom+'%';
+	return false;
+}
+</script>
+</head>
+<body>
+<p>将鼠标放在图片上，点击一下，然后滚动鼠标滚轮试试看</p>
+<p><img border="0" src="img/flower.jpg" onmousewheel="return bbimg(this)"></p>
+<p>　</p>
+<p>　</p>
+<p>　</p>
+</body>
+</html>

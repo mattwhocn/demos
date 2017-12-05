@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        ul,li{list-style: none;}
+        .wrap{
+            width:500px;
+            height:480px;
+            box-shadow: 5px 5px 5px #999;
+            margin:20px auto;
+        }
+        .wrap li{
+            float: left;
+            margin: 0 10px;
+        }
+        .wrap li div p{
+            height:32px;
+            width:80px;
+            text-align: center;
+            line-height: 32px;
+            background: #dfdfdf;
+            color: #fff;
+            float: left;
+            cursor: pointer;
+        }
+        .wrap li div:before{
+            content: '';
+            display: block;
+            float: left;
+            border:16px solid transparent;
+            border-right-color:#dfdfdf;
+            border-bottom-color:#dfdfdf;
+        }
+        .wrap li div:after{
+            content: '';
+            display: block;
+            float: left;
+            border:16px solid transparent;
+            border-top-color:#dfdfdf;
+            border-left-color:#dfdfdf;
+        }
+
+        .wrap li div:hover p{
+            background: #228A2F;
+        }
+        .wrap li div:hover:before{
+            border-bottom-color:#228A2F;
+            border-right-color:#228A2F;
+        }
+        .wrap li div:hover:after{
+            border-top-color:#228A2F;
+            border-left-color:#228A2F;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <ul>
+            <li>
+                <div><p>我的视频</p></div>
+            </li>
+            <li>
+                <div><p>我的学生</p></div>
+            </li>
+            <li>
+                <div><p>我的教师</p></div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

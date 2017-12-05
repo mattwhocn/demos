@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<base href="<%=basePath%>" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+<title>协议</title>
+<link href="themes/default/style.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="themes/css/core.css" rel="stylesheet" type="text/css" media="screen" />
+<link href="themes/css/print.css" rel="stylesheet" type="text/css"media="print" />
+<script src="js/speedup.js" type="text/javascript"></script>
+<script src="../newwwwww/uploadfile/js/jquery-1.7.1.js" type="text/javascript"></script>
+<script src="js/jquery.cookie.js" type="text/javascript"></script>
+<script src="js/jquery.validate.js" type="text/javascript"></script>
+<script src="js/jquery.bgiframe.js" type="text/javascript"></script>
+<script src="js/dwz.validate.method.js" type="text/javascript"></script>
+<script src="js/dwz.regional.zh.js" type="text/javascript"></script>
+<script src="js/dwz.ajax.js" type="text/javascript"></script>
+<script src="js/CityJson.js" type="text/javascript"></script>
+<script src="js/ProJson.js" type="text/javascript"></script>
+<script src="js/DistrictJson.js" type="text/javascript"></script>
+<script src="js/jquery.form.js" type="text/javascript"></script>
+    <script type="text/javascript">
+    $(function () {
+
+        $.each(province, function (k, p) { 
+            var option = "<option value='" + p.id + "'>" + p.name + "</option>";
+            $("#province").append(option);
+        });
+         
+        $("#province").change(function () {
+            var selValue = $(this).val(); 
+            $("#city option:gt(0)").remove();
+             
+            $.each(city, function (k, p) { 
+                if (p.parentId == selValue) {
+                    var option = "<option value='" + p.id + "'>" + p.name + "</option>";
+                    $("#city").append(option);
+                }
+            });
+             
+        });
+         
+        $("#city").change(function () {
+            var selValue = $(this).val();
+            $("#county option:gt(0)").remove(); 
+
+            $.each(District, function (k, p) {
+                if (p.parentId == selValue) {
+                    var option = "<option value='" + p.id + "'>" + p.name + "</option>";
+                    $("#county").append(option);
+                }
+            }); 
+        }); 
+        
+       
+        
+    });
+    
+    
+    
+    
+    </script>
+
+</head>
+<body scroll="no">
+	<div id="layout">
+		<div id="header">
+			<div class="headerNav">
+				<a class="logo" href="#"></a>
+			</div>
+		</div>
+	</div>
+	<div class="pageContent">
+
+		<form method="post" action="teacher/teacher/addOrganization.do" id="orgAdd"
+			class="pageForm required-validate"
+			onsubmit="return validateCallback(this, navTabAjaxDone);">
+			<table width="100%">
+				<input type="hidden" name="orgAttribute"
+					value="${param.orgAttribute}" />
+				<input type="hidden" name="teacherName" value="${param.teacherName}" />
+				<input type="hidden" name="teacherPassword"
+					value="${param.teacherPassword}" />
+				<input type="hidden" name="teacherPhoneNum"
+					value="${param.teacherPhoneNum}" />
+				<tr>
+					<td
+						style="width: 500px; height: 12px; font-size: 12px; text-align: left;">欢迎成为班集合作机构！请务必填写真实信息，以便为您提供服务。
+					</td>
+				</tr>
+				<tr>
+					<td	style="width: 500px; height: 12px; font-size: 12px; text-align: left; border-spacing: 0px 25px;"><B>协议</B>>注册>完善信息>注册成功</td>
+				</tr>
+				<tr	style="height: 30px; font-size: 16px; text-align: center; border-spacing: 0px 25px;">
+
+					<td>机构名称: <input type="text" class="required" name="organizationName" size="30" /></td>
+				</tr>
+				<tr style="display:none;height: 30px; font-size: 16px; text-align: center; border-spacing: 0px 25px;"> 
+				
+				<td>
+				<label><input type="radio" name="orgAttribute" class="required" value="1" checked="checked"/>文化类</label> 
+				<label><input type="radio" name="orgAttribute" class="required" value="2"/>素质类</label> -->
+				</td>
+			   </tr>
+				<tr	style="height: 30px; font-size: 16px; text-align: center; border-spacing: 0px 25px;">
+					<td>咨询电话: <input type="text" name="organizationTel" class="required phone textInput" size="30" /></td>
+				</tr>
+				<tr>
+					<td >所在地区:
+					<select id="province" name="province" style="width: 70px;" class="required">
+				        <option value="">请选择</option>
+				    </select>
+				    <select id="city" name="city" style="width: 70px;" class="required">
+				        <option value="">请选择</option>
+				       
+				    </select>
+				    <select id="county" name="county" style="width: 70px;">
+				        <option value="">请选择</option>
+				    </select>
+					</td>
+				</tr>
+				<tr	style="height: 30px; font-size: 16px; text-align: center; border-spacing: 0px 25px;">
+					<td>详细地址: <input type="text" name="organizationAddress" class="required"
+						size="30" />
+					</td>
+				</tr>
+				<tr	style="height: 30px; font-size: 16px; text-align: center; border-spacing: 0px 25px;">
+					<td>机构简介: <textarea name="organizationDescription" cols="28"
+							rows="3"></textarea>
+					</td>
+				</tr>
+				<tr	style="height: 30px;  font-size: 16px; text-align: center; border-spacing: 0px 25px;">
+					<td>机构LOGO: 
+					        <input type="hidden" id="organizationLogoUrl" name="organizationLogoUrl" />
+							<input type="hidden" name="saveUrlCode" value="3"/>
+							<input id="imageFile" type="file" onchange="uploadPic()" name="imageFile" />
+							<div style="color: red" id="picWarn">请上传40KB(80*80像素)的图片</div>
+					    <img height="100" id="allUrl" /> 
+					</td>
+				</tr>
+				
+				
+			    <!--选择-->
+				<tr style="height: 30px; font-size: 16px; text-align: center; border-spacing: 0px 25px;"> 
+					<td >证件上传:
+						<div >
+							<label><input type="radio" name="identityType" class="required upload_option" value="0" checked="checked"/>营业执照</label> 
+							<label><input type="radio" name="identityType" class="required upload_option" value="1" />法人身份证</label>
+					   </div>
+					</td>
+			    </tr>
+			    
+			    
+			    <!--点击营业执照显示的部分-->
+				<tr	style="height: 30px; font-size: 16px; text-align: center; border-spacing: 0px 25px;" class="identityCard replace_item">
+					<td>机构证件: 
+					
+					    <input type="hidden" id="identity" name="identity" />
+							<input id="identityFile" type="file" onchange="uploadIdentityPic()" name="identityFile" />
+							<div style="color: red" id="picIdentityWarn">请上传40KB(80*80像素)的图片</div>
+					    <img height="100" id="identityUrl" /> 
+					</td>
+				</tr>
+				
+				<tr	style="height: 30px; font-size: 16px; text-align: center; border-spacing: 0px 25px;" class="identityCard replace_item">
+					<td>公司名称:<input id="companyName" type="text"  name="companyName" size="30"/>
+					</td>
+				</tr>
+				
+				
+				<!--点击法人身份证显示的部分-->
+				<tr	style="height: 30px; display: none; font-size: 16px; text-align: center; border-spacing: 0px 25px;" class="idCard replace_item">
+					<td>法人身份证: 
+					    <!-- 正面 -->
+					    <input type="hidden" id="idCardPositive" name="idCardPositive" />
+						<input id="idCardPositiveFile" type="file" onchange="uploadIdCardPositivePic()" name="idCardPositiveFile" />
+						<div style="color: red" id="idCardPositiveWarn">请上传40KB(80*80像素)的图片</div>
+					    <img height="100" id="idCardPositiveUrl" /> 
+					    <!-- 反面 -->
+					    <input type="hidden" id="idCardNegative" name="idCardNegative" />
+						<input id="idCardNegativeFile" type="file" onchange="uploadIdCardNegativePic()" name="idCardNegativeFile" />
+						<div style="color: red" id="idCardNegativeWarn">请上传40KB(80*80像素)的图片</div>
+					    <img height="100" id="idCardNegativeUrl" /> 
+					</td>
+				</tr>
+				
+                <tr style="height: 30px; display: none; font-size: 16px; text-align: center; border-spacing: 0px 25px;" class="idCard replace_item">
+					<td>法人姓名:<input id="legalName" type="text"  name="legalName" size="30"/>
+					</td>
+				</tr> 
+			    
+				
+				 
+				 
+				 
+				<tr>
+					<td><label> <input type="button" value="上一步"
+							onclick="history.go(-1)" /></label> <label><input type="submit"
+							value="下一步" /></label></td>
+				</tr>
+
+			</table>
+		</form>
+
+	</div>
+ <script type="text/javascript">
+         //证件上传的radio点击事件
+		$(function(){
+		 		
+				$('.upload_option').on('click',function(){
+					$('.replace_item').css('display','none');
+					var choseIndex = $(this).attr('value');
+					if(choseIndex == 0){
+						$('.identityCard').css('display','');
+					}else{
+						
+						$('.idCard').css('display','');
+					}
+					
+				})
+		})
+        //上传LOGO图片
+    	function uploadPic() {
+    		
+    		/* var f = document.getElementById("imageFile").files;  
+    		var file_size =f[0].size;
+    		var size = file_size / 1024;
+    		if (size > 40) {
+    			alert("上传的文件大小不能超过40KB！");
+    			return false;
+    		} */
+    		var filepath = $("input[name='imageFile']").val();
+    		 
+    		var extStart = filepath.lastIndexOf(".");
+    		var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+    		if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG"
+    				&& ext != ".JPEG") {
+    			alert("图片限于bmp,png,gif,jpeg,jpg格式");
+    			return false;
+    		}
+
+    	
+
+    		var options = {
+    			url : "<%=basePath%>fileService/pic.do",
+    			type : "post",
+    			dataType : "json",
+    			success : function(data) {
+    				
+    				$("#allUrl").attr("src", data.pic);//回显全路径
+    				$("#organizationLogoUrl").val(data.pic);//此处是把啊里全路径保存进实体对应URL
+    				$("#picWarn").hide();
+    			}
+    		}
+    		//异步上传
+    		$("#orgAdd").ajaxSubmit(options);
+    	}  
+        
+    	//上传机构证件照图片
+    	function uploadIdentityPic() {
+    		
+    		/* var f = document.getElementById("imageFile").files;  
+    		var file_size =f[0].size;
+    		var size = file_size / 1024;
+    		if (size > 40) {
+    			alert("上传的文件大小不能超过40KB！");
+    			return false;
+    		} */
+    		var filepath = $("input[name='identityFile']").val();
+    		var extStart = filepath.lastIndexOf(".");
+    		var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+    		if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG"
+    				&& ext != ".JPEG") {
+    			alert("图片限于bmp,png,gif,jpeg,jpg格式");
+    			return false;
+    		}
+
+ 
+    		var options = {
+    			url : "<%=basePath%>fileService/identityPic.do",
+    			type : "post",
+    			dataType : "json",
+    			success : function(data) {
+    				
+    				$("#identityUrl").attr("src", data.pic);//回显全路径
+    				$("#identity").val(data.pic);//此处是把啊里全路径保存进实体对应URL
+    				$("#picIdentityWarn").hide();
+    			}
+    		}
+    		//异步上传
+    		$("#orgAdd").ajaxSubmit(options);
+    	}  
+    	
+    	//上传身份证正面照
+    	function uploadIdCardPositivePic() {
+    		
+    		/* var f = document.getElementById("imageFile").files;  
+    		var file_size =f[0].size;
+    		var size = file_size / 1024;
+    		if (size > 40) {
+    			alert("上传的文件大小不能超过40KB！");
+    			return false;
+    		} */
+    		var filepath = $("input[name='idCardPositiveFile']").val();
+    		var extStart = filepath.lastIndexOf(".");
+    		var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+    		if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG"
+    				&& ext != ".JPEG") {
+    			alert("图片限于bmp,png,gif,jpeg,jpg格式");
+    			return false;
+    		}
+
+ 
+    		var options = {
+    			url : "<%=basePath%>fileService/idCardPositive.do",
+    			type : "post",
+    			dataType : "json",
+    			success : function(data) {
+    				
+    				$("#idCardPositiveUrl").attr("src", data.pic);//回显全路径
+    				$("#idCardPositive").val(data.pic);//此处是把啊里全路径保存进实体对应URL
+    				$("#idCardPositiveWarn").hide();
+    			}
+    		}
+    		//异步上传
+    		$("#orgAdd").ajaxSubmit(options);
+    	}
+    	
+    	
+    	
+    	//上传身份证反面照
+    	function uploadIdCardNegativePic() {
+    		
+    		/* var f = document.getElementById("imageFile").files;  
+    		var file_size =f[0].size;
+    		var size = file_size / 1024;
+    		if (size > 40) {
+    			alert("上传的文件大小不能超过40KB！");
+    			return false;
+    		} */
+    		var filepath = $("input[name='idCardNegativeFile']").val();
+    		var extStart = filepath.lastIndexOf(".");
+    		var ext = filepath.substring(extStart, filepath.length).toUpperCase();
+    		if (ext != ".BMP" && ext != ".PNG" && ext != ".GIF" && ext != ".JPG"
+    				&& ext != ".JPEG") {
+    			alert("图片限于bmp,png,gif,jpeg,jpg格式");
+    			return false;
+    		}
+
+ 
+    		var options = {
+    			url : "<%=basePath%>fileService/idCardNegative.do",
+				type : "post",
+				dataType : "json",
+				success : function(data) {
+
+					$("#idCardNegativeUrl").attr("src", data.pic);//回显全路径
+					$("#idCardNegative").val(data.pic);//此处是把啊里全路径保存进实体对应URL
+					$("#idCardNegativeWarn").hide();
+				}
+			}
+			//异步上传
+			$("#orgAdd").ajaxSubmit(options);
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>翻页效果</title>
+	<style type="text/css">
+		*{
+			margin:0;
+			padding:0
+		}
+		body{
+			background: #212121;
+			perspectiv:1000px;
+		}
+		.book{
+			width: 800px;
+			height: 600px;
+			margin: 0 auto;
+			position: relative;
+			transform: rotateX(30deg);
+			transform-style: preserve-3d;
+		}
+		.page-box-1,.page-box-2,.page-box-3,.page-box-4{
+			width: 600px;
+			height: 400px;
+			position: absolute;
+			left: 200px;
+			top: 200px;
+		}
+		.page-1,.page-2,.page-3,.page-4{
+			width: 300px;
+			height: 400px;
+			position: absolute;
+			left: 50%;
+			background-color:#fff;
+			border:1px solid #96a36e; 
+		}
+		.page-1{
+			background: url("../lib/smile.jpg") no-repeat center center;
+			background-size: 300px 400px;
+		}
+		.page-2 p,.page-3 p,.page-4 p{
+			font-size: 24px;
+			margin-top: 100px;
+			line-height: 50px;
+			padding: 0 20px 0 30px;
+		}
+		@keyframes turn {
+			0%{
+				transform: rotateY(0deg);
+			}
+			50%{
+				transform: rotateY(-160deg);
+			}
+			100%{
+				transform: rotateY(0deg);
+			}
+		}
+		.page-box-1{
+			animation: turn 17s;
+		}
+		@keyframes turn2 {
+			0%{
+				transform: rotateY(0deg);
+			}
+			50%{
+				transform: rotateY(-150deg);
+			}
+			100%{
+				transform: rotateY(0deg);
+			}
+		}
+		.page-box-2{
+			animation: turn2 13s 2s;
+		}
+		@keyframes turn3 {
+			0%{
+				transform: rotateY(0deg);
+			}
+			50%{
+				transform: rotateY(-140deg);
+			}
+			100%{
+				transform: rotateY(0deg);
+			}
+		}
+		.page-box-3{
+			animation: turn3 10s 3s;
+		}
+	</style>
+</head>
+<body>
+	<div class="book">
+		<div class="page-box-4">
+			<div class="page-4">
+				<p>我是第四页的数据</p>
+			</div>
+		</div>
+		<div class="page-box-3">
+			<div class="page-3">
+				<p>我是第三页的数据</p>
+			</div>
+		</div>
+		<div class="page-box-2">
+			<div class="page-2">
+				<p>我是第二页的数据</p>
+			</div>
+		</div>
+		<div class="page-box-1">
+			<div class="page-1">
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>

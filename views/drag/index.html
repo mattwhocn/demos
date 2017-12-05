@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#photo{
+			width: 680px;
+			height: 500px;
+			margin: 50px auto;
+		}
+		#photo ul li{
+			list-style: none;
+			width: 200px;
+			height: 150px;
+			float: left;
+			margin: 10px;
+			border:2px solid transparent;
+		}
+		#photo ul li img{
+			width: 200px;
+			height: 150px;
+		}
+	</style>
+</head>
+<body>
+	<div id="photo">
+		<ul>
+			<li><img src="img/img1.jpeg" alt=""></li>
+			<li><img src="img/img2.jpeg" alt=""></li>
+			<li><img src="img/img3.jpeg" alt=""></li>
+			<li><img src="img/img4.jpeg" alt=""></li>
+			<li><img src="img/img3.jpeg" alt=""></li>
+			<li><img src="img/img2.jpeg" alt=""></li>
+			<li><img src="img/img1.jpeg" alt=""></li>
+			<li><img src="img/img4.jpeg" alt=""></li>
+			<li><img src="img/img3.jpeg" alt=""></li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript">
+	//面向过程的函数式封装
+	//面向对象
+	/*
+		0、浮动布局改为定位布局
+		1、拖拽事件
+		2、碰撞检测
+		3、计算碰撞成功的距离最近的li
+		4、鼠标抬起之后交换碰撞之后的照片的位置
+	*/	
+	//0、把浮动布局改成定位布局
+		var aLi = document.getElementsByTagName('li');
+		var arr = [];//用来存储每个li的偏移值
+		var z = 1;
+		for(var i = 0; i < aLi.length; i++){
+			// aLi[i].index = i;
+			arr.push([aLi[i].offsetLeft,aLi[i].offsetTop])
+		}
+		// console.log(arr)
+		for(var i = 0; i < aLi.length; i++){
+			aLi[i].style.position = "absolute";
+			aLi[i].style.left = arr[i][0] + 'px';
+			aLi[i].style.top = arr[i][1] + 'px';
+			aLi[i].style.margin = 0;
+		}
+		//1、拖拽事件
+		for(var i = 0; i < aLi.length; i++){
+			drag(aLi[i])
+		}
+		function drag(obj) {
+			
+			obj.onmousedown = function(event) {
+				var e = event || window.event;
+				//获取鼠标坐标位置
+				var x = e.clientX;
+				var y = e.clientY;
+				//获取li原来的位置
+				var l = obj.offsetLeft;
+				var t = obj.offsetTop;
+				// e.preventDefault = false;
+				// console.log(x,y)
+				this.style.zIndex = z++
+				document.onmousemove = function(event){
+					var e = event || window.event;
+					obj.style.left = ( l + e.clientX - x ) + 'px';
+					obj.style.top = ( t + e.clientY - y ) + 'px';
+
+					//碰撞检测
+					var oLi = nearli(obj);
+					if(oLi){
+						oLi.style.border = "2px solid red";
+					}
+
+				}
+				document.onmouseup = function(){
+					document.onmouseup = null;
+					document.onmousemove = null;
+					//
+				}
+				return false;
+			}
+		}
+		//2、碰撞检测
+		function impact(obj1,obj2){
+			var l1 = obj1.offsetLeft,
+				t1 = obj1.offsetTop,
+				b1 = t1 + obj1.offsetHeight,
+				r1 = l1 + obj1.offsetWidth;
+
+			var l2 = obj2.offsetLeft,
+				t2 = obj2.offsetTop,
+				b2 = t2 + obj2.offsetHeight,
+				r2 = l2 + obj2.offsetWidth;
+			return (t2 > b1 || l2 > r1 || b2 < t1 || r2 < l1) ? false : true;
+		}
+		//3、计算碰撞成功的距离最近的li
+		function distance(obj1,obj2){
+			var a = obj1.offsetLeft - obj2.offsetLeft,
+				b = obj1.offsetTop - obj2.offsetTop;
+			return Math.sqrt(a*a+b*b);
+		}
+
+		function nearli(obj){
+			var n = 1000000;
+			var oLi = ''; 
+			for(var i = 0; i < aLi.length; i++){
+				aLi[i].style.border = 'none';
+				if(impact(aLi[i],obj) && (obj != aLi[i])){
+					// console.log(1)
+					var c = distance(aLi[i],obj);
+					if(c < n){
+						n = c;
+						oLi = aLi[i];
+					}
+				}
+			}
+			return oLi;
+		}
+
+
+
+
+
+
+
+
+
+</script>
+</html>

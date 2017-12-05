@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>uploadVideo</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="js/qiniu.js/plupload.full.min.js"></script>
+    <script type="text/javascript" src="js/qiniu.js/qiniu.js"></script>
+    <script type="text/javascript" src="js/qiniu.js/ui.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    <title>七牛云存储 - JavaScript SDK</title>
+</head>
+<body>
+    <div role="tabpanel" class="tab-pane fade in active" id="demo" aria-labelledby="demo-tab">
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-12">
+                <div id="container" style="position: relative;">
+                    <a class="btn btn-default btn-lg " id="pickfiles" style="position: relative; z-index: 1;">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>选择文件</span>
+                    </a>
+                <div id="html5_1b692mfl83451816pbqtts4kh3_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 171px; height: 46px; overflow: hidden; z-index: 0;"><input id="html5_1b692mfl83451816pbqtts4kh3" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept=""></div></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+/*global Qiniu */
+/*global plupload */
+/*global FileProgress */
+/*global hljs */
+
+$(function() {
+    var uploader = Qiniu.uploader({
+        runtimes: 'html5,flash,html4',
+        browse_button: 'pickfiles',
+        container: 'container',
+        drop_element: 'container',
+        max_file_size: '100mb',
+        flash_swf_url: 'bower_components/plupload/js/Moxie.swf',
+        dragdrop: false,
+        chunk_size: '4mb',
+        multi_selection: false,
+        uptoken: 'ZzI71pMn5SOzx7dpM3goxi86Rctzl3Jg9Dvs7PPp:6pY43n4KSFjLVi-2BBpJisQ8SsE=:eyJzYXZlS2V5IjoiMjYvMjAxNy8wMy8wNy8xNDg4ODcyNjAxNTEyMTMwNTgubXA0Iiwic2NvcGUiOiJ0ZXN0IiwiZGVhZGxpbmUiOjE0ODg4NzYyMDF9',
+        domain: 'http://og41gl1jq.bkt.clouddn.com/',
+        get_new_uptoken: false,
+        
+        auto_start: true,
+        log_level: 5,
+        init: {
+            'FilesAdded': function(up, files) {
+                $('table').show();
+                $('#success').hide();
+                plupload.each(files, function(file) {
+                    var progress = new FileProgress(file, 'fsUploadProgress');
+                    progress.setStatus("等待...");
+                    progress.bindUploadCancel(up);
+                });
+            },
+            'BeforeUpload': function(up, file) {
+                var progress = new FileProgress(file, 'fsUploadProgress');
+                var chunk_size = plupload.parseSize(this.getOption('chunk_size'));
+                if (up.runtime === 'html5' && chunk_size) {
+                    progress.setChunkProgess(chunk_size);
+                }
+            },
+            'UploadProgress': function(up, file) {
+                var progress = new FileProgress(file, 'fsUploadProgress');
+                var chunk_size = plupload.parseSize(this.getOption('chunk_size'));
+                progress.setProgress(file.percent + "%", file.speed, chunk_size);
+            },
+            'UploadComplete': function() {
+                $('#success').show();
+            },
+            'FileUploaded': function(up, file, info) {
+                var progress = new FileProgress(file, 'fsUploadProgress');
+                progress.setComplete(up, info);
+            },
+            'Error': function(up, err, errTip) {
+                $('table').show();
+                var progress = new FileProgress(err.file, 'fsUploadProgress');
+                progress.setError();
+                progress.setStatus(errTip);
+            }
+        }
+    });
+
+    uploader.bind('FileUploaded', function() {
+        console.log('hello man,a file is uploaded');
+    });
+    
+});
+
+	
+	
+	
+</script>

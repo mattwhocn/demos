@@ -1,0 +1,86 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+
+.datepicker {
+    font-size: 0.28rem;
+    font-weight: normal;
+}
+.datepicker table {
+    width: 100%;
+    margin: 0;
+}
+
+/*thead部分*/
+.datepicker th {
+    text-align: center;
+    height: 0.84rem;
+    padding:0;
+}
+.datepicker thead .menu{
+    height:0.96rem;
+    font-size: 0.32rem;
+}
+.datepicker thead .week-menu{
+    height:0.62rem;
+    font-size: 0.24rem;
+}
+.datepicker thead .week-menu th{
+    font-weight: normal;
+    color: #878d9d;
+}
+.datepicker thead .week-menu th.weekend{
+    color: #ffc600;
+}
+
+.datepicker thead i{
+    display: block;
+    width:100%;
+    height:100%;
+}
+.datepicker thead .prev i{
+    background: url("icon_page_left.png") no-repeat center center;
+}
+.datepicker thead .next i{
+    background: url("icon_page_right.png") no-repeat center center;
+}
+
+.input-append.date .add-on i, .input-prepend.date .add-on i {
+    display: block;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+}
+
+/*tbody 部分*/
+.datepicker td{
+    text-align: center;
+    height: 0.84rem;
+    padding:0;
+}
+
+/*day 栏*/
+.datepicker .day span{
+    display: block;
+    height:0.68rem;
+    width:0.68rem;
+    line-height: 0.68rem;
+    text-align: center;
+    margin: auto;
+    border-radius: 50%;
+}
+
+.datepicker td.old, .datepicker td.new {
+    color: #c7c7c7;
+}
+.datepicker td.active span{
+    /*background-color: #37acf4;*/
+    /*color: #fff;*/
+
+    border:3px solid #37acf4;
+}
+
+

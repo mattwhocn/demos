@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="box" style="width: 50px; height: 50px; background: red;position: absolute;"></div>
+	</body>
+	<script type="text/javascript">
+		var box = document.getElementById("box");
+		box.onmousedown = function(e){
+			var e = e||window.event;
+			var ofx = e.offsetX;
+			var ofy = e.offsetY;
+			box.onmousemove = function(e){
+				var ev = e||window.event;
+				this.style.left = ev.clientX - ofx + "px";
+				this.style.top = ev.clientY - ofy + "px";
+			};
+			box.onmouseup = function(){
+				box.onmousemove = null;
+			}
+		}
+	</script>
+</html>

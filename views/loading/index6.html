@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing: border-box;
+        }
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        body{
+            position: relative;
+        }
+        .wrap{
+            width:200px;
+            height:200px;
+            position: absolute;
+            background: #75f06d;
+            left:50%;
+            top:50%;
+            transform: translate(-50%,-50%);
+            border-radius: 50%;
+            border:10px solid rgba(1, 143, 22, 0.97);
+        }
+        .inner{
+            display: block;
+            position: absolute;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            margin:auto;
+
+            width:180px;
+            height:180px;
+            border-radius: 50%;
+            border:10px solid transparent;
+            border-top:10px solid red;
+
+            animation: round 2s cubic-bezier(.76,.39,.31,.81) .3s infinite;
+        }
+        @keyframes round {
+            0%{transform: rotate(0deg)}
+            100%{transform: rotate(360deg)}
+        }
+
+        .inner2{
+            display: block;
+            position: absolute;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            margin:auto;
+
+            width:160px;
+            height:160px;
+            border-radius: 50%;
+            border:10px solid transparent;
+            border-top:10px solid #ff00b7;
+
+            animation: round 2s cubic-bezier(.76,.39,.31,.81) .2s infinite;
+        }
+        .inner3{
+            display: block;
+            position: absolute;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            margin:auto;
+
+            width:140px;
+            height:140px;
+            border-radius: 50%;
+            border:10px solid transparent;
+            border-top:10px solid #582bff;
+
+            animation: round 2s cubic-bezier(.76,.39,.31,.81) .1s infinite;
+        }
+        .inner4{
+            display: block;
+            position: absolute;
+            left:0;
+            top:0;
+            right:0;
+            bottom:0;
+            margin:auto;
+
+            width:120px;
+            height:120px;
+            border-radius: 50%;
+            border:10px solid transparent;
+            border-top:10px solid #0e1a2d;
+
+            animation: round 2s cubic-bezier(.76,.39,.31,.81) infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="inner"></div>
+        <div class="inner2"></div>
+        <div class="inner3"></div>
+        <div class="inner4"></div>
+    </div>
+    <ul style="padding: 60px;">
+        <li>animation-name:绑定的keyframes的名称</li>
+        <li>animation-duration:动画持续时间</li>
+        <li>animation-timing-function:速度曲线</li>
+        <li>animation-delay:动画开始前的延时</li>
+        <li>animation-iteration-count:动画要播放的次数</li>
+        <li>animation-direction:动画播放的方向-是否反向播放</li>
+    </ul>
+</body>
+</html>

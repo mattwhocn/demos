@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../plugins/skPlayer/skPlayer.css">
+    <script type="text/javascript" src="../../script/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="../../plugins/skPlayer/skPlayer.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header></header>
+    <main class="content"></main>
+    <footer></footer>
+</body>
+<script src="../../script/base.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+//    http://59.110.62.241:9201/artical/artical.html?id=115
+$(function(){
+    //抵消base.js的自适应字体
+    document.documentElement.style.fontSize = '16px';
+    $window.resize(function () {
+        document.documentElement.style.fontSize = '16px';
+    });
+
+    $('main').html('<div id="skPlayer"></div>');
+    skPlayer({
+        music:{
+            src:'http://banji-test.oss-cn-shanghai.aliyuncs.com/article/video/2017/05/03/1493775703678083866.mp3',//音乐文件，必填
+            name:'打呼',//歌曲名称，必填
+            author:'潘玮柏&杨丞琳',//歌手，必填
+            cover:'http://banji-test.oss-cn-shanghai.aliyuncs.com/admin/ad/2017/03/13/1489396931821.jpg'//专辑封面，必填
+            //loop:true 是否单曲循环，选填
+        }
+    });
+});
+
+
+</script>
+</html>

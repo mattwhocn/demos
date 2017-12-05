@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src=""></script>
+    <title>Title</title>
+    <style>
+        .wrap{
+            width:200px;
+            height:40px;
+            background: red;
+            border-radius: 20px;
+            position: relative;
+        }
+        .wrap p {
+            text-align: center;
+            line-height: 40px;
+        }
+        .wrap span{
+            position: absolute;
+            display: block;
+            width:200px;
+            height:40px;
+            background: rgba(255, 255, 255, .5);
+            border-radius: 20px;
+            left:0;
+            right:0;
+            margin:auto;
+            transform: rotateY(90deg);
+        }
+        .wrap:hover span{
+            animation:roll .5s ease;
+            -webkit-animation: roll .5s ease;
+        }
+        @keyframes roll{
+            from {transform: rotateY(90deg);}
+            to {transform: rotateY(0deg);}
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <span></span>
+        <p>现在开始</p>
+    </div>
+    <p>更多</p>
+    <ul>
+        <li><a href="./wifi图标.html">wifi图标</a></li>
+        <li><a href="./wifi图标2.html">WiFi图标2</a></li>
+        <li><a href="./线性渐变.html">线性渐变</a></li>
+        <li><a href="./菱形图标.html">菱形图标</a></li>
+    </ul>
+</body>
+<script type="text/javascript">
+
+</script>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>  
+<html>  
+    <head>  
+        <meta charset="utf-8" />  
+        <title>自定义滚动条</title>  
+        <style type="text/css">  
+            #container {  
+                width: 300px;  
+                height: 400px;  
+                border: solid 1px grey;  
+                margin: 0 auto;  
+                position: relative;  
+                overflow: hidden;  
+            }  
+            #div1 {  
+                width: 280px;  
+                position: absolute;  
+                left: 0;  
+            }  
+            #div2 {  
+                width: 20px;  
+                height: 400px;  
+                background-color: #999;  
+                position: absolute;  
+                right: 0;  
+            }  
+            #div3 {  
+                width: 20px;  
+                height: 20px;  
+                background-color: red;  
+                position: absolute;  
+                left: 0;  
+                top: 0;  
+                cursor: pointer;  
+            }  
+  
+        </style>  
+    </head>  
+    <body>  
+        <div id="container">  
+            <div id="div1">  
+                相信很多人都遇到过在设计中自定义滚动条样式的情景，之前我都是努力说服设计师接受浏览器自带的滚动条样式，但是这样只能规避还是解决不了问题，最近在项目中遇到了，正好来总结一下。当然，兼容所有浏览器的滚动条样式目前是不存在的。  
+  
+                IE下的滚动条样式  
+  
+                IE是最早提供滚动条的样式支持，好多年了，但是其它浏览器一直没有支持，IE独孤求败了。  
+  
+                这些样式规则很简单：  
+  
+                scrollbar-arrow-color: color; /*三角箭头的颜色*/  
+  
+                scrollbar-face-color: color; /*立体滚动条的颜色（包括箭头部分的背景色）*/  
+  
+                scrollbar-3dlight-color: color; /*立体滚动条亮边的颜色*/  
+  
+                scrollbar-highlight-color: color; /*滚动条的高亮颜色（左阴影？）*/  
+  
+                scrollbar-shadow-color: color; /*立体滚动条阴影的颜色*/  
+  
+                scrollbar-darkshadow-color: color; /*立体滚动条外阴影的颜色*/  
+  
+                scrollbar-track-color: color; /*立体滚动条背景颜色*/  
+  
+                scrollbar-base-color: color; /*滚动条的基色*/  
+  
+                大概就这些，你也可以定义cursor来定义滚动条的鼠标手势。  
+  
+                这里，很久以前danger做了个基于Flash的可视化工具，简单但是好用选中CSS选项即可自动生成CSS样式，这里不再过多的介绍了。嗯，多谢大猫老湿推荐。  
+  
+                webkit的自定义滚动条样式  
+  
+                yes，这里才是今天要重点介绍的。  
+  
+                从上一部分的样式名中就可以看到，IE只能定义相关部分的color等属性，这样太不灵活了。  
+  
+                webkit最近实现了对滚动条的支持，先看一个简单的demo：  
+            </div>  
+            <div id="div2">  
+                <div id="div3"></div>  
+            </div>  
+        </div>  
+  
+        <script type="text/javascript" charset="utf-8">  
+            var oContainer = document.getElementById("container"), oDiv1 = document.getElementById("div1"), oDiv2 = document.getElementById("div2"), oDiv3 = document.getElementById("div3");  
+  
+            oDiv3.onmousedown = function(e) {  
+                e = e || event;  
+  
+                var disY = e.clientY - this.offsetTop;  
+                  
+                if(oDiv3.setCapture){  
+                    oDiv3.onmousemove=fnMove;  
+                    oDiv3.onmouseup=fnUp;  
+                    oDiv3.setCapture();  
+                }else{  
+                    document.onmousemove=fnMove;  
+                    document.onmouseup=fnUp;  
+                }  
+                  
+                function fnMove(ev) {  
+                    ev = ev || event;  
+  
+                    var t = ev.clientY - disY;  
+                    setTop(t);  
+                };  
+  
+                function fnUp() {  
+                    this.onmousemove = null;  
+                    this.onmouseup = null;  
+                      
+                    if(this.releaseCapture){  
+                        this.releaseCapture();  
+                    }  
+                };  
+  
+                return false;  
+            };  
+  
+            function setTop(t) {  
+                var down = oDiv2.offsetHeight - oDiv3.offsetHeight;  
+  
+                if (t < 0) {  
+                    t = 0;  
+                } else if (t > down) {  
+                    t = down  
+                }  
+  
+                oDiv3.style.top = t + 'px';  
+  
+                var scale = t / down;  
+                oDiv1.style.top = -(oDiv1.offsetHeight - oContainer.offsetHeight) * scale + 'px';  
+            }  
+  
+            addEvent(oDiv1, 'mousewheel', mousewheel);  
+            addEvent(oDiv1, 'DOMMouseScroll', mousewheel);  
+            addEvent(oDiv2, 'mousewheel', mousewheel);  
+            addEvent(oDiv2, 'DOMMouseScroll', mousewheel);  
+  
+            function addEvent(obj, oEvent, fn) {  
+                if (obj.attachEvent) {  
+                    obj.attachEvent('on' + oEvent, fn);  
+                } else {  
+                    obj.addEventListener(oEvent, fn, false);  
+                }  
+            }  
+  
+            function mousewheel(e) {  
+                var ev = e || event, bDown = false;  
+  
+                bDown = ev.wheelDelta ? ev.wheelDelta < 0 : ev.detail > 0;  
+                  
+                if (bDown) {  
+                    setTop(oDiv3.offsetTop+10);  
+                }else{  
+                    setTop(oDiv3.offsetTop-10);  
+                }  
+  
+                //FF,绑定事件，阻止默认事件  
+                if (e.preventDefault) {  
+                    e.preventDefault();  
+                }  
+  
+                return false;  
+            }  
+        </script>  
+    </body>  
+</html>  

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="datePicker.css">
+    <script type="text/javascript" src="../script/jquery-1.11.3.js"></script>
+    <script type="text/javascript" src="datePicker.js"></script>
+</head>
+<body>
+<div id="dataWrap">
+
+    <td>
+        <span>
+            <i></i>
+        </span>
+    </td>
+
+
+
+
+</div>
+</body>
+<script type="text/javascript">
+    document.documentElement.style.fontSize = innerWidth/7.5 + 'px';
+    $(window).resize(function () {
+        document.documentElement.style.fontSize = innerWidth/7.5 + 'px';
+    });
+
+    var dates = ['2017-04-25','2017-04-27'];
+
+    $.datePicker({dates:dates,wrap:'#dataWrap'});
+</script>
+</html>

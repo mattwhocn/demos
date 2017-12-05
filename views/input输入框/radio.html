@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<label> radio单选框测试</label> <br/>  
+	       <input type="radio" name="danx" value="sd" checked="checked" />学生   
+	       <input type="radio" name="danx" value="tea" />教师   
+	       <input type="radio" name="danx" value="adm" />管理员 <br/>  
+	         
+	        <input type="button" value="单选按钮测试" onclick="submit2()" /> <br/>  
+	        <input type="button" value="单选框设置选中" onclick="set2()" /><br/><br/>  
+	</body>
+	
+	<script src="../script/jquery-1.12.3.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript">
+		
+		
+		
+		$(function(){  
+		     $("input:radio").click(function() {  
+		         alert("改变了选择");//单选按钮的点击事件  还有blur focus事件  
+		      });  
+		});  
+		  
+		function set2() {  
+		   var $checked = $("input[type=radio]").eq(2);//单选按钮中索引为2的选项（"管理员"选项）  
+		     //$checked.attr("checked", true);  
+		      var $checked2 = $("input:radio[value='tea']");//单选按钮中value为tea的选项  
+		      $checked2.attr("checked", true);  
+		}  
+		             
+		function submit2() {  
+		    var $radio = $("input[type='radio']:checked");//获取选中的选项  
+		      var val = $radio.val();//获取选中的选项的值value  
+		      alert("选中的val:" + val); 
+		}
+	</script>
+</html>

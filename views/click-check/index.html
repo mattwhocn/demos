@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>2222</title>
+		<link rel="stylesheet" type="text/css" href="css/radialindicator.css" />
+		<script src="js/jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/radialIndicator.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="box">
+			<div id="indicatorContainerWrap">
+			<div id="indicatorContainer"></div>
+			<!--<div id="prgLogo">-->
+				<img id="prgLogo" src="img/lab_exp.png"/>
+			<!--</div>-->
+		</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		radialIndicator.defaults.barWidth = 5; // 指示器刻度条的宽度
+		radialIndicator.defaults.radius = 100; // 进度条大小
+		radialIndicator.defaults.barBgColor = "#d2e4f7"; //指示器剩余刻度条的背景颜色
+		radialIndicator.defaults.barColor = "#f00"; //指示渊声巷背景颜色
+		radialIndicator.defaults.roundCorner = false; //边缘圆角
+		radialIndicator.defaults.displayNumber = false; //边缘圆角
+		var radialObj = radialIndicator("#indicatorContainer");
+		var curProgress = radialObj.value(); // 获取刻度值
+		radialObj.value(0); // 设置刻度值
+		$("#prgLogo").click(function(){
+			radialObj.animate(100);
+			//查询百分比度数
+			var time = setInterval(function(){
+				var num = radialObj.value();
+				console.log(num)
+				if(num == 100){
+					clearInterval(time);//停止查询
+					radialObj.value(0);
+					$("#prgLogo").css("background","red")
+					show();
+				}
+			},300)
+		});
+		function show(){
+			var wValue=6.5 * $('#prgLogo').width(); 
+			var hValue=6.5 * $('#prgLogo').height(); 
+			$('#prgLogo').animate({width: wValue, 
+			height: hValue,
+			opacity:0,
+			left:("-"+(4 * $('#prgLogo').width())/2), 
+			top:("-"+(4 * $('#prgLogo').height())/2)}, 400,function(){
+				$('#prgLogo').animate({
+					width:"60",
+					height:"60",
+					left:"50%",
+					top:"50%",
+					opacity:1
+				},100)
+				alert("执行跳转链接")
+			});
+		}
+	</script>
+
+</html>

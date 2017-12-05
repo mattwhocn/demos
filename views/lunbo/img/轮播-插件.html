@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>index</title>
+		<link rel="stylesheet" href="../css/bootstrap.min.css" />
+		<script type="text/javascript" src="../script/jquery-1.12.3.js"></script>
+		<script src="js/index.js"></script>
+		<style type="text/css">
+			 *{ margin:0; padding:0; }
+			  img{ display: block; border:none;}
+			  ul,li{ list-style: none;}
+			  .lubo{ width: 100%; min-width:1000px;clear: both; position: relative; height:400px;}
+			  .lubo_box{ position: relative; width: 100%; height:400px; }
+			  .lubo_box li{ float: left;position: absolute; top: 0; left: 0; width: 100%; height:400px; opacity: 0;filter:alpha(opacity=0);}
+			  .lubo_box li a{ display: block;width: 100%;  height: 100%;}
+			  .lubo_box li img{ width: 100%; height: 400px;}
+			  /*圆点*/
+			  .cir_box{ overflow: hidden; position: absolute; z-index: 100;}
+			  .cir_box li{ float: left; width: 50px; height: 5px; margin:0 5px; cursor: pointer; background: #fff; opacity: 0.6;filter:alpha(opacity=60);}
+			  .cir_on{ background: blue !important;}
+			  /*登陆页面*/
+			 .login{width: 260px;height: 300px;background: #fff;position: fixed;left: 800px;top: 140px;z-index: 999;border-radius: 5%;}
+		</style>
+	</head>
+	<body>
+		
+		<div id="head"><img src="img/topBanner.jpg"/></div>
+		<div class="lubo">
+			<ul class="lubo_box">
+			<li style="opacity: 1;">
+				<a href="" style="background: url(img/list1.jpg) no-repeat center top"></a>
+			</li>
+			<li style="opacity: 0;">
+				<a href="" style="background: url(img/list2.jpg) no-repeat center top"></a>
+			</li>
+			<li style="opacity: 0;">
+				<a href="" style="background:url(img/list3.jpg) no-repeat center top"></a>
+			</li>
+			</ul>
+			<ul class="cir_box" style="left: 50%; margin-left: -200px; bottom: 10%;">
+				<li class="" style="" value="0"></li>
+				<li class="" style="" value="1"></li>
+				<li class="" style="" value="2"></li>
+			</ul>
+		</div>
+		<div class="login">
+			<h3 style="text-align: center;">用户登录</h3>
+			<hr/>
+			  <form name ="login_form"class="form-horizontal"action ="./login"method="post">
+				  <div class="col-md-10"style="margin-bottom: 12px;">
+				    <input type="text" class="form-control" name="username"onkeypress="javascript:login();" placeholder="用户账号/手机号/邮箱">
+				  </div>
+				  <div class="col-md-10"style="margin-bottom: 12px;">
+				    <input type="password" class="form-control" name="password"onkeypress="javascript:login();" placeholder="密码">
+				  </div>
+				  <div class="col-md-10"style="margin-bottom: 12px;">
+				    <button type="button" class="btn btn-primary">登陆</button>
+				    <button type="button" class="btn btn-primary">注册</button>
+				    <a href="">忘记密码？</a>
+				  </div>
+				</form>
+			
+		</div>
+		 <script type="text/javascript">
+			 $(function(){
+			     $(".lubo").lubo({
+			     });
+			 })
+	   </script>
+	</body>
+</html>

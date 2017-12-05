@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			#spinner{ margin: 0; padding: 0; box-sizing: border-box; }
+			.spinner_btn{ float: left; display: inline-block; width: 22px;text-align: center;
+				height: 22px;line-height: 22px; border: 1px solid #999; cursor: pointer;-webkit-user-select: none; }
+			.minus{ border-radius: 8px 0 0 8px; }
+			.plus{ border-radius: 0 8px 8px 0; }
+			.spinner_box{ float: left; width: 30px;text-align: center; height: 20px; outline: none; margin: 0; padding: 0; }
+		</style>
+	</head>
+	<script src="js/jquery-1.7.1.js" type="text/javascript" charset="utf-8"></script>
+	<body>
+		<div id="spinner">
+		 	<span class="spinner_btn minus">-</span>
+		  	<input type="text" value="0" class="spinner_box" readonly="readonly">
+		  	<span class="spinner_btn plus">+</span>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var stap = 5;
+		$('.plus').on('click',function(){
+			var oldVal = parseInt($('.spinner_box').val());
+			$('.spinner_box').val(oldVal+stap);
+		});
+		$('.minus').on('click',function(){
+			var oldVal = parseInt($('.spinner_box').val());
+			$('.spinner_box').val(oldVal-stap);
+		})
+		$('.spinner_box').on('keyup',function(){
+			var oldVal = $(this).val();
+		})
+
+	</script>
+</html>
